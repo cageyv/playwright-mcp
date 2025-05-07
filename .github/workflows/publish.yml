@@ -28,13 +28,14 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            ${{ steps.docker_login.outputs.registry }}/${{ github.event.repository.name }}
+           ghcr.io/${{ github.repository }}
           tags: |
             type=raw,priority=100,value=${{ github.sha }}
             type=raw,priority=150,value=${{ github.run_id }}-${{ github.run_attempt }}
             type=ref,event=branch
             type=ref,event=pr
             type=raw,value=latest
+            ghcr.io/user/app:latest
           labels: |
             org.opencontainers.image.revision=${{ github.sha }}         
       - name: Build and push Docker image
